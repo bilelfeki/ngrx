@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { decrement, increment } from '../counter.actions';
+import { CounterFacade } from './counter.facade';
 
 @Component({
   selector: 'app-counter',
@@ -10,13 +11,13 @@ import { decrement, increment } from '../counter.actions';
 })
 export class CounterComponent {
   count$: Observable<number>;
-  constructor(private store: Store<{ count: number }>) {
-    this.count$ = this.store.select('count');
+  constructor(private counterFacade:CounterFacade) {
+    this.count$=counterFacade.count$
   }
   increment() {
-    this.store.dispatch(increment());
+    this.counterFacade.increment()
   }
   decrement() {
-    this.store.dispatch(decrement());
+    this.counterFacade.decrement()
   }
 }
